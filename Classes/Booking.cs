@@ -1,24 +1,31 @@
-﻿namespace AirportTicketBooking.Classes
+﻿using AirportTicketBooking.Controllers;
+
+namespace AirportTicketBooking.Classes
 {
     internal class Booking
     {
         internal int BookingId { get; set; }
-        internal Flight Flight { get; set; }
+        internal int FlightId { get; set; }
 
-        internal Passenger Passenger { get; set; }
+        internal int PassengerPassportId { get; set; }
 
         internal DateTime BookingDate { get; set; }
 
         internal TicketClassType.ClassType ClassType { get; set; }
 
-        internal Booking(int bookingId, Flight flight, Passenger passenger, 
-                        DateTime bookingDate, TicketClassType.ClassType classType)
+        internal Booking(int bookingId, int flightId, int passengerPassportId, 
+                        DateTime bookingDate, TicketClassType.ClassType classType, bool isNewBooking= true)
         {
             BookingId = bookingId;
-            Flight = flight;
-            Passenger = passenger;
+            FlightId = flightId;
+            PassengerPassportId = passengerPassportId;
             BookingDate = bookingDate;
             ClassType = classType;
+
+            if (isNewBooking)
+            {
+                BookingRepositoty.SaveToFile(this);
+            }
         }
     }
 }
