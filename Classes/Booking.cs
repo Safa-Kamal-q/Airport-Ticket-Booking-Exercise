@@ -1,31 +1,29 @@
-﻿using AirportTicketBooking.Controllers;
-
-namespace AirportTicketBooking.Classes
+﻿namespace AirportTicketBooking.Classes
 {
-    internal class Booking
+    public class Booking
     {
         internal int BookingId { get; set; }
+
         internal int FlightId { get; set; }
 
         internal int PassengerPassportId { get; set; }
 
         internal DateTime BookingDate { get; set; }
 
-        internal TicketClassType.ClassType ClassType { get; set; }
+        internal decimal Price { get; set; }
 
-        internal Booking(int bookingId, int flightId, int passengerPassportId, 
-                        DateTime bookingDate, TicketClassType.ClassType classType, bool isNewBooking= true)
+        internal Booking(int bookingId, int flightId, int passengerPassportId, DateTime bookingDate, decimal price)
         {
             BookingId = bookingId;
             FlightId = flightId;
             PassengerPassportId = passengerPassportId;
             BookingDate = bookingDate;
-            ClassType = classType;
+            Price = price;
+        }
 
-            if (isNewBooking)
-            {
-                BookingRepositoty.SaveToFile(this);
-            }
+        public override string ToString()
+        {
+            return $"{BookingId},{FlightId},{PassengerPassportId},{BookingDate},{Price}";
         }
     }
 }

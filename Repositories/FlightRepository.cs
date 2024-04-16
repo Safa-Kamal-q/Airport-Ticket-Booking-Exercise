@@ -1,69 +1,51 @@
 ﻿using AirportTicketBooking.Classes;
+using ClassType = TicketClassType.ClassType;
 
-namespace AirportTicketBooking.Controllers
+namespace AirportTicketBooking.Repositories
 {
-    internal class FlightRepository
+    public class FlightRepository: IRepository<Flight>
     {
         private const string filePath = "flights.csv";
 
 
-        internal static void SaveToFile(Flight flight)
+        public void Save(Flight flight)
         {
-            var writer = new StreamWriter(filePath, true);
-
-            if (!File.Exists(filePath))
-            {
-                writer.WriteLine("FlightNumber,DepartureCountry,DestinationCountry," +
-                                   "DepartureAirport,ArrivalAirport,LeaveDateTime,Price");
-            }
-
-            string flightData = $"{flight.FlightNumber},{flight.DepartureCountry},{flight.DestinationCountry}," +
-                          $"{flight.DepartureAirport},{flight.ArrivalAirport},{flight.LeaveDateTime},{flight.Price}";
-
-            writer.WriteLine(flightData);
+            RepositoryHelper.SaveToFile(filePath, flight);
         }
 
-        internal static List<object> LoadFromFile()
+        public List<object> Load()
         {
-            if (!File.Exists(filePath))
-            {
-                throw new Exception($"{filePath} does not exist.");
-            }
-
-            //make it object not booking to add string when the reading line is Invaild format
-            var fileData = new List<object>();
-
-            var reader = new StreamReader(filePath);
-            string line;
-            reader.ReadLine(); //to skip the header line
-
-            while ((line = reader.ReadLine()) != null)
-            {
-                string[] flightData = line.Split(',');
-                if (flightData.Length != 7)
-                {
-                    fileData.Add("Invalid data format. Skipping line.");
-                    continue;
-                }
-
-                int flightNumber = int.Parse(flightData[0]);
-                string departureCountry = flightData[1];
-                string destinationCountry = flightData[2];
-                string departureAirport = flightData[3];
-                string arrivalAirport = flightData[4];
-                DateTime leaveDateTime = DateTime.Parse(flightData[5]);
-                decimal price = decimal.Parse(flightData[6]);
-
-                var flight = new Flight(flightNumber, departureCountry, destinationCountry, departureAirport, arrivalAirport, leaveDateTime, price, false);
-
-                fileData.Add(flight);
-            }
-            return fileData;
+           return RepositoryHelper.LoadFromFile(filePath, FlightFromData);
         }
-        public static void Delete()
+
+        public static Flight FlightFromData(string[] flightData)
         {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+            if (flightData.Length != 9)
+            {
+                throw new Exception("Invalid data format. Skipping line.");
+            }
+
+            int flightNumber = int.Parse(flightData[0]);
+            string departureCountry = flightData[1];
+            string destinationCountry = flightData[2];
+            string departureAirport = flightData[3];
+            string arrivalAirport = flightData[4];
+            DateTime departureDate = DateTime.Parse(flightData[5]);
+            decimal price = decimal.Parse(flightData[6]);
+            int flightCapacity = int.Parse(flightData[7]);
+            string classTypeString = flightData[4];
+
+            bool isEnumParseSuccess = Enum.TryParse(classTypeString, out ClassType classType);
+
+            if (!isEnumParseSuccess)
+            {
+                throw new FormatException("Incorrect stored data: Invalid class type");
+            }
+
+            var flight = new Flight(flightNumber, departureCountry, destinationCountry, departureAirport,
+                                    arrivalAirport, departureDate, price, flightCapacity, classType);
+
+            return flight;
         }
     }
 }

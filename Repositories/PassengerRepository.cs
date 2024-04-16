@@ -1,66 +1,37 @@
 ﻿using AirportTicketBooking.Classes;
 
-namespace AirportTicketBooking.Controllers
+namespace AirportTicketBooking.Repositories
 {
-    internal class PassengerRepository
+    public class PassengerRepository: IRepository<Passenger>
     {
         private const string filePath = "passenger.csv";
 
 
-        internal static void SaveToFile(Passenger passenger)
+        public void Save(Passenger passenger)
         {
-            var writer = new StreamWriter(filePath, true);
-
-            if (!File.Exists(filePath))
-            {
-                writer.WriteLine("PassportId,Name,Email,PhoneNumber");
-
-            }
-
-            string passengerDate = $"{passenger.PassportId},{passenger.Name},{passenger.Email}, {passenger.PhoneNumber}";
-
-            writer.WriteLine(passengerDate);
+            RepositoryHelper.SaveToFile(filePath, passenger);
         }
 
-        internal static List<object> LoadFromFile()
+        public List<object> Load()
         {
-            if (!File.Exists(filePath))
-            {
-                throw new Exception($"{filePath} does not exist.");
-            }
-
-            //make it object not Passenger to add string when the reading line is Invaild format
-            var fileData = new List<object>();
-
-            var reader = new StreamReader(filePath);
-            string line;
-            reader.ReadLine(); //to skip the header line
-
-            while ((line = reader.ReadLine()) != null)
-            {
-                string[] passengerData = line.Split(',');
-                if (passengerData.Length != 4)
-                {
-                    fileData.Add("Invalid data format. Skipping line.");
-                    continue;
-                }
-
-                int passportId = int.Parse(passengerData[0]);
-                string name = passengerData[1];
-                string email = passengerData[2];
-                string phoneNumber = passengerData[3];
-
-                var passenger = new Passenger(passportId, name, email, phoneNumber, false);
-
-                fileData.Add(passenger);
-            }
-            return fileData;
+            return RepositoryHelper.LoadFromFile(filePath, PassengerFromData);
         }
-        public static void Delete()
+
+        public static Passenger PassengerFromData(string[] passengerData)
         {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+            if (passengerData.Length != 4)
+            {
+                throw new FormatException("Invalid data format. Skipping line.");
+            }
+
+            int passportId = int.Parse(passengerData[0]);
+            string name = passengerData[1];
+            string email = passengerData[2];
+            string phoneNumber = passengerData[3];
+
+            var passenger = new Passenger(passportId, name, email, phoneNumber);
+
+            return passenger;
         }
     }
 }
-
