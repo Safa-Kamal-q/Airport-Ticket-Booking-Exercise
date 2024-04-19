@@ -2,20 +2,27 @@
 {
     public class Passenger
     {
-        internal int PassportId { get; set; }
+        public int PassportId { get; set; }
 
-        internal string Name { get; set; }
+        public string Name { get; set; }
 
-        internal string Email { get; set; }
+        public string Email { get; set; }
 
-        internal string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
-        internal Passenger(int passportId, string name, string email, string phoneNumber)
+        public string InvalidationMessage { get; set; }
+
+        public Passenger(int passportId, string name, string email, string phoneNumber)
         {
             PassportId = passportId;
             Name = name;
             Email = email;
             PhoneNumber = phoneNumber;
+        }
+
+        public Passenger(string invalidationMassage)
+        {
+            InvalidationMessage = invalidationMassage;
         }
 
         public override string ToString()

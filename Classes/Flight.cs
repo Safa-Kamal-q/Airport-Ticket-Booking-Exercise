@@ -4,26 +4,26 @@ namespace AirportTicketBooking.Classes
 {
     public class Flight
     {
-        internal int FlightNumber { get; set; }
+        public int FlightNumber { get; set; }
 
-        internal string DepartureCountry { get; set; }
+        public string DepartureCountry { get; set; }
 
-        internal string DestinationCountry { get; set; }
+        public string DestinationCountry { get; set; }
 
-        internal string DepartureAirport { get; set; }
+        public string DepartureAirport { get; set; }
 
-        internal string ArrivalAirport { get; set; }
+        public string ArrivalAirport { get; set; }
 
-        internal DateTime DepartureDate { get; set; }
+        public DateTime DepartureDateTime { get; set; }
 
-        internal decimal Price { get; set; }
+        public int FlightCapacity { get; set; }
 
-        internal int FlightCapacity { get; set; }
+        public ClassType ClassType { get; set; }
 
-        internal ClassType ClassType { get; set; }
+        public string InvalidationMessage { get; set; }
 
-        internal Flight(int flightNumber, string departureCountry, string destinationCountry,
-                        string departureAirport, string arrivalAirport, DateTime departureDate, decimal price,
+        public Flight(int flightNumber, string departureCountry, string destinationCountry,
+                        string departureAirport, string arrivalAirport, DateTime departureDateTime,
                         int flightCapacity, ClassType classType)
         {
             FlightNumber = flightNumber;        
@@ -31,16 +31,20 @@ namespace AirportTicketBooking.Classes
             DestinationCountry = destinationCountry;
             DepartureAirport = departureAirport;
             ArrivalAirport = arrivalAirport;
-            DepartureDate = departureDate;
-            Price = price;
+            DepartureDateTime = departureDateTime;
             FlightCapacity= flightCapacity;
             ClassType = classType;
+        }
+
+        public Flight(string invalidationMassage)
+        {
+            InvalidationMessage = invalidationMassage;
         }
 
         public override string ToString()
         {
             return $"{FlightNumber},{DepartureCountry},{DestinationCountry},{DepartureAirport}," +
-                    $"{ArrivalAirport},{DepartureDate},{Price},{FlightCapacity},{ClassType}";
+                    $"{ArrivalAirport},{DepartureDateTime},{FlightCapacity},{ClassType}";
         }
     }
 }

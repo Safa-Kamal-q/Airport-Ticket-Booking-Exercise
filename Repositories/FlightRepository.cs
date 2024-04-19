@@ -13,16 +13,16 @@ namespace AirportTicketBooking.Repositories
             RepositoryHelper.SaveToFile(filePath, flight);
         }
 
-        public List<object> Load()
+        public List<Flight> Load()
         {
            return RepositoryHelper.LoadFromFile(filePath, FlightFromData);
         }
 
-        public static Flight FlightFromData(string[] flightData)
+        public Flight FlightFromData(string[] flightData)
         {
             if (flightData.Length != 9)
             {
-                throw new Exception("Invalid data format. Skipping line.");
+                return new Flight("Invalid data format. Skipping line.");
             }
 
             int flightNumber = int.Parse(flightData[0]);
@@ -30,20 +30,19 @@ namespace AirportTicketBooking.Repositories
             string destinationCountry = flightData[2];
             string departureAirport = flightData[3];
             string arrivalAirport = flightData[4];
-            DateTime departureDate = DateTime.Parse(flightData[5]);
-            decimal price = decimal.Parse(flightData[6]);
-            int flightCapacity = int.Parse(flightData[7]);
-            string classTypeString = flightData[4];
+            DateTime departureDateTime = DateTime.Parse(flightData[5]);
+            int flightCapacity = int.Parse(flightData[6]);
+            string classTypeString = flightData[7];
 
             bool isEnumParseSuccess = Enum.TryParse(classTypeString, out ClassType classType);
 
             if (!isEnumParseSuccess)
             {
-                throw new FormatException("Incorrect stored data: Invalid class type");
+                return new Flight("Incorrect stored data: Invalid class type");
             }
 
             var flight = new Flight(flightNumber, departureCountry, destinationCountry, departureAirport,
-                                    arrivalAirport, departureDate, price, flightCapacity, classType);
+                                    arrivalAirport, departureDateTime, flightCapacity, classType);
 
             return flight;
         }

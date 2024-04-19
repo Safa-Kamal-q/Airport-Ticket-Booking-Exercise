@@ -12,16 +12,16 @@ namespace AirportTicketBooking.Repositories
             RepositoryHelper.SaveToFile(filePath, passenger);
         }
 
-        public List<object> Load()
+        public List<Passenger> Load()
         {
             return RepositoryHelper.LoadFromFile(filePath, PassengerFromData);
         }
 
-        public static Passenger PassengerFromData(string[] passengerData)
+        public Passenger PassengerFromData(string[] passengerData)
         {
             if (passengerData.Length != 4)
             {
-                throw new FormatException("Invalid data format. Skipping line.");
+                return new Passenger("Invalid data format. Skipping line.");
             }
 
             int passportId = int.Parse(passengerData[0]);

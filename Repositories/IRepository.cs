@@ -4,7 +4,7 @@
     {
         void Save(T data);
 
-        List<object> Load();
+        List<T> Load();
 
     }
 }

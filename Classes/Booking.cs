@@ -2,23 +2,30 @@
 {
     public class Booking
     {
-        internal int BookingId { get; set; }
+        public int BookingId { get; set; }
 
-        internal int FlightId { get; set; }
+        public int FlightId { get; set; }
 
-        internal int PassengerPassportId { get; set; }
+        public int PassengerPassportId { get; set; }
 
-        internal DateTime BookingDate { get; set; }
+        public DateTime BookingDate { get; set; }
 
-        internal decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-        internal Booking(int bookingId, int flightId, int passengerPassportId, DateTime bookingDate, decimal price)
+        public string InvalidationMessage { get; set; }
+
+        public Booking(int bookingId, int flightId, int passengerPassportId, DateTime bookingDate, decimal price)
         {
             BookingId = bookingId;
             FlightId = flightId;
             PassengerPassportId = passengerPassportId;
             BookingDate = bookingDate;
             Price = price;
+        }
+
+        public Booking(string invalidationMassage)
+        {
+            InvalidationMessage = invalidationMassage;
         }
 
         public override string ToString()
