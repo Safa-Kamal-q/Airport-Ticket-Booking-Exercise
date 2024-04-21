@@ -12,7 +12,7 @@
 
         public decimal Price { get; set; }
 
-        public string InvalidationMessage { get; set; }
+        public string ValidationMessage { get; set; }
 
         public Booking(int bookingId, int flightId, int passengerPassportId, DateTime bookingDate, decimal price)
         {
@@ -25,7 +25,7 @@
 
         public Booking(string invalidationMassage)
         {
-            InvalidationMessage = invalidationMassage;
+            ValidationMessage = invalidationMassage;
         }
 
         public override string ToString()

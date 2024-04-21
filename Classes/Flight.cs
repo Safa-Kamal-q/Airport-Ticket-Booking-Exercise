@@ -20,7 +20,7 @@ namespace AirportTicketBooking.Classes
 
         public ClassType ClassType { get; set; }
 
-        public string InvalidationMessage { get; set; }
+        public string ValidationMessage { get; set; }
 
         public Flight(int flightNumber, string departureCountry, string destinationCountry,
                         string departureAirport, string arrivalAirport, DateTime departureDateTime,
@@ -38,7 +38,7 @@ namespace AirportTicketBooking.Classes
 
         public Flight(string invalidationMassage)
         {
-            InvalidationMessage = invalidationMassage;
+            ValidationMessage = invalidationMassage;
         }
 
         public override string ToString()
