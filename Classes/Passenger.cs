@@ -10,7 +10,7 @@
 
         public string PhoneNumber { get; set; }
 
-        public string InvalidationMessage { get; set; }
+        public string ValidationMessage { get; set; }
 
         public Passenger(int passportId, string name, string email, string phoneNumber)
         {
@@ -20,9 +20,9 @@
             PhoneNumber = phoneNumber;
         }
 
-        public Passenger(string invalidationMassage)
+        public Passenger(string validationMassage)
         {
-            InvalidationMessage = invalidationMassage;
+            ValidationMessage = validationMassage;
         }
 
         public override string ToString()

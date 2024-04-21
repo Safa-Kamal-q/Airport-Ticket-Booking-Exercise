@@ -17,7 +17,7 @@ namespace AirportTicketBooking.Repositories
             return RepositoryHelper.LoadFromFile(filePath, PassengerFromData);
         }
 
-        public Passenger PassengerFromData(string[] passengerData)
+        private Passenger PassengerFromData(string[] passengerData)
         {
             if (passengerData.Length != 4)
             {

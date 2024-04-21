@@ -23,9 +23,9 @@
             Price = price;
         }
 
-        public Booking(string invalidationMassage)
+        public Booking(string validationMassage)
         {
-            ValidationMessage = invalidationMassage;
+            ValidationMessage = validationMassage;
         }
 
         public override string ToString()

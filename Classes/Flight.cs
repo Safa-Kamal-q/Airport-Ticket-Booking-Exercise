@@ -36,9 +36,9 @@ namespace AirportTicketBooking.Classes
             ClassType = classType;
         }
 
-        public Flight(string invalidationMassage)
+        public Flight(string validationMassage)
         {
-            ValidationMessage = invalidationMassage;
+            ValidationMessage = validationMassage;
         }
 
         public override string ToString()
