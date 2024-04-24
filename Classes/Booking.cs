@@ -1,24 +1,36 @@
 ﻿namespace AirportTicketBooking.Classes
 {
-    internal class Booking
+    public class Booking
     {
-        internal int BookingId { get; set; }
-        internal Flight Flight { get; set; }
+        public int BookingId { get; set; }
 
-        internal Passenger Passenger { get; set; }
+        public int FlightId { get; set; }
 
-        internal DateTime BookingDate { get; set; }
+        public int PassengerPassportId { get; set; }
 
-        internal TicketClassType.ClassType ClassType { get; set; }
+        public DateTime BookingDate { get; set; }
 
-        internal Booking(int bookingId, Flight flight, Passenger passenger, 
-                        DateTime bookingDate, TicketClassType.ClassType classType)
+        public decimal Price { get; set; }
+
+        public string ValidationMessage { get; set; }
+
+        public Booking(int bookingId, int flightId, int passengerPassportId, DateTime bookingDate, decimal price)
         {
             BookingId = bookingId;
-            Flight = flight;
-            Passenger = passenger;
+            FlightId = flightId;
+            PassengerPassportId = passengerPassportId;
             BookingDate = bookingDate;
-            ClassType = classType;
+            Price = price;
+        }
+
+        public Booking(string validationMassage)
+        {
+            ValidationMessage = validationMassage;
+        }
+
+        public override string ToString()
+        {
+            return $"{BookingId},{FlightId},{PassengerPassportId},{BookingDate},{Price}";
         }
     }
 }

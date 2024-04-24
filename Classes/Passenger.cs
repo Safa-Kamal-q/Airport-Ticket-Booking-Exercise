@@ -1,19 +1,33 @@
 ﻿namespace AirportTicketBooking.Classes
 {
-    internal class Passenger
+    public class Passenger
     {
-        internal int PassportId { get; set; }
-        internal string Name { get; set; }
-        internal string Email { get; set; }
-        internal string PhoneNumber { get; set; }
+        public int PassportId { get; set; }
 
-        internal Passenger(int passportId, string name, string email, string phoneNumber)
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string ValidationMessage { get; set; }
+
+        public Passenger(int passportId, string name, string email, string phoneNumber)
         {
             PassportId = passportId;
             Name = name;
             Email = email;
             PhoneNumber = phoneNumber;
         }
-    
+
+        public Passenger(string validationMassage)
+        {
+            ValidationMessage = validationMassage;
+        }
+
+        public override string ToString()
+        {
+            return $"{PassportId},{Name},{Email},{PhoneNumber}";
+        }
     } 
 }
