@@ -5,17 +5,18 @@ namespace AirportTicketBooking.Repositories
 {
     public class FlightRepository: IRepository<Flight>
     {
-        private const string filePath = "flights.csv";
+        private const string FilePath = "flights.csv";
 
+        public FlightRepository() { }
 
         public void Save(Flight flight)
         {
-            RepositoryHelper.SaveToFile(filePath, flight);
+            RepositoryHelper.SaveToFile(FilePath, flight);
         }
 
         public List<Flight> Load()
         {
-           return RepositoryHelper.LoadFromFile(filePath, FlightFromData);
+           return RepositoryHelper.LoadFromFile(FilePath, FlightFromData);
         }
 
         private Flight FlightFromData(string[] flightData)
@@ -45,6 +46,11 @@ namespace AirportTicketBooking.Repositories
                                     arrivalAirport, departureDateTime, flightCapacity, classType);
 
             return flight;
+        }
+
+        public void DeleteTheFileData()
+        {
+            RepositoryHelper.DeleteAllEntireData(FilePath);
         }
     }
 }

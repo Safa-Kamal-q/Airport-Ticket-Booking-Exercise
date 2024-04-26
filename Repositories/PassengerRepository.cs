@@ -4,17 +4,18 @@ namespace AirportTicketBooking.Repositories
 {
     public class PassengerRepository: IRepository<Passenger>
     {
-        private const string filePath = "passenger.csv";
+        private const string FilePath = "passenger.csv";
 
+        public PassengerRepository() { }
 
         public void Save(Passenger passenger)
         {
-            RepositoryHelper.SaveToFile(filePath, passenger);
+            RepositoryHelper.SaveToFile(FilePath, passenger);
         }
 
         public List<Passenger> Load()
         {
-            return RepositoryHelper.LoadFromFile(filePath, PassengerFromData);
+            return RepositoryHelper.LoadFromFile(FilePath, PassengerFromData);
         }
 
         private Passenger PassengerFromData(string[] passengerData)
@@ -32,6 +33,11 @@ namespace AirportTicketBooking.Repositories
             var passenger = new Passenger(passportId, name, email, phoneNumber);
 
             return passenger;
+        }
+
+        public void DeleteTheFileData()
+        {
+            RepositoryHelper.DeleteAllEntireData(FilePath);
         }
     }
 }
