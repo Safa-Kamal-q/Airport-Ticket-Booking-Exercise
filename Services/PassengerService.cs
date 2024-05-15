@@ -3,16 +3,16 @@ using AirportTicketBooking.Repositories;
 
 namespace AirportTicketBooking.Routers
 {
-    internal class PassengerRouter
+    internal class PassengerService
     {
         private PassengerRepository _passengerRepository;
 
-        public PassengerRouter()
+        public PassengerService()
         {
             _passengerRepository = new PassengerRepository();
         }
 
-        public List<Passenger> GetAllData()
+        private List<Passenger> GetAllData()
         {
             return _passengerRepository.Load();
         }
@@ -22,7 +22,7 @@ namespace AirportTicketBooking.Routers
             return GetAllData().Where(passenger => passenger.ValidationMessage == null).ToList();
         }
 
-        public bool TryGetByPassportId(int passportId, out Passenger passenger)
+        public bool TryGet(int passportId, out Passenger passenger)
         {
             passenger = GetAll().FirstOrDefault(passenger => passenger.PassportId == passportId);
             return (passenger != null);
@@ -33,9 +33,9 @@ namespace AirportTicketBooking.Routers
             _passengerRepository.Save(passenger);
         }
 
-        public void RemoveByPassportId(int passportId)
+        public void RemoveBy(int passportId)
         {
-            if (!TryGetByPassportId(passportId, out _))
+            if (!TryGet(passportId, out _))
             {
                 throw new Exception($"Passenger with PassportId: {passportId} doesn't exist");
             }

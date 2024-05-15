@@ -2,11 +2,11 @@
 
 namespace AirportTicketBooking.Repositories
 {
-    public class BookingRepositoty: IRepository<Booking>
+    public class BookingRepository: IRepository<Booking>
     {
         private const string FilePath = "booking.csv";
 
-        public BookingRepositoty() { }
+        public BookingRepository() { }
         
         public void Save(Booking booking)
         {
