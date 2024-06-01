@@ -6,5 +6,7 @@
 
         List<T> Load();
 
+        void DeleteTheFileData();
+
     }
 }

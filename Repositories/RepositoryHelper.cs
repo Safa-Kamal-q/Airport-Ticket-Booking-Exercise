@@ -1,6 +1,4 @@
-﻿using AirportTicketBooking.Classes;
-
-namespace AirportTicketBooking.Repositories
+﻿namespace AirportTicketBooking.Repositories
 {
     public class RepositoryHelper
     {
@@ -33,6 +31,18 @@ namespace AirportTicketBooking.Repositories
                 fileData.Add(parsedData);
             }
             return fileData;
+        }
+
+        public static void DeleteAllEntireData(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new Exception($"{filePath} does not exist.");
+            }
+
+            var writer = new StreamWriter(filePath, false);
+
+            writer.BaseStream.SetLength(0);
         }
     }
 }
